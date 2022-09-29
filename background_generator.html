@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Background Generator</title>
+    <style>
+        body {
+            font-family: 'Fira Code', sans-serif;
+            font-size: 25px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size:75px;
+            text-transform: uppercase;
+        }
+        p{
+            font-size:39px;
+        }
+
+        input {
+            width: 100px;
+            height: 50px;
+        }
+
+        .btnColor {
+            margin-top: 50px;
+            font-size: 1em;
+            border-radius:5px;
+            padding:10px 15px;
+            background-color: aliceblue;
+        }
+    </style>
+</head>
+
+<body id="gradient">
+    <h1>Color Generator</h1>
+    <p>Each colors has it's own Meaning. Which you youself has your own meaning to archieve your target in life. Keep
+        work it out. You will get It!</p>
+    <br>
+    <h3></h3>
+    <input type="color" id="color1">
+    <input type="color" id="color2"><br>
+    <button class="btnColor">Random Color Changes</button>
+
+    <script>
+        const color1 = document.querySelector('#color1');
+        const color2 = document.querySelector('#color2');
+        const btnColor = document.querySelector('.btnColor');
+        const h3 = document.querySelector('h3');
+        const body = document.querySelector('#gradient');
+
+        // Create Body Background Color Changer
+        function setGradient(){
+            body.style.background =
+            'linear-gradient(to right, '
+            + color1.value
+            + ', '
+            +color2.value
+            +')';
+
+            h3.textContent =  body.style.background + ';'
+        }
+
+  
+        // Create random number generator
+        function randomNumber() {
+            return Math.round(Math.random() * 255);
+        }
+
+        // Create color conversion
+        function colorConversion() {
+            let hex = randomNumber().toString(16);
+            if (hex.length < 2) {
+                hex ='0' + hex;
+            }
+            return hex;
+        }
+
+        // Create random color generator
+        function colorGenerator(){
+            let hexColor = '#'+ colorConversion() + colorConversion() + colorConversion();
+            return hexColor;
+        }
+
+        // Overall Sum of Random Color Generator
+        function randomColorGenerator(){
+            color1.value = colorGenerator();
+            color2.value = colorGenerator();
+            setGradient();
+        }
+
+        // Event Listener
+        color1.addEventListener('input', setGradient);
+        color2.addEventListener('input', setGradient);
+        btnColor.addEventListener('click', randomColorGenerator);
+
+
+    </script>
+</body>
+
+</html>
